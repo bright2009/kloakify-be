@@ -1,0 +1,62 @@
+openapi: 3.0.3
+info:
+  title: "Kloaify API"
+  description: "Kloaify API"
+  version: 1.0.0
+paths:
+  /api/v1/users/sign_up:
+    post:
+      summary: Sign up a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserSignupRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserSignupResponse'
+components:
+  schemas:
+    UserSignupRequest:
+      type: object
+      properties:
+        user:
+          type: object
+          properties:
+            email:
+              type: string
+              format: email
+            password:
+              type: string
+              minLength: 8  # Example minimum length, adjust as needed
+    UserSignupResponse:
+      type: object
+      properties:
+        status:
+          type: object
+          properties:
+            code:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Signed up successfully.
+        data:
+          type: object
+          properties:
+            id:
+              type: integer
+            jti:
+              type: string
+            email:
+              type: string
+              format: email
+            created_at:
+              type: string
+              format: date-time
+

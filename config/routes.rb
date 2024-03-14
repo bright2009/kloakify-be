@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  mount Rswag::Api::Engine => '/api-docs'
+  mount Rswag::Ui::Engine => '/api-docs'
   devise_for :users, path: "api/v1/users", path_names: {
                        registration: "sign_up",
                      },
