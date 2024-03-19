@@ -17,6 +17,7 @@ Rails.application.routes.draw do
         get '/user_details' => 'current_user#index'
       end
       resources :documents, only: [:create]
+      get '/documents' => 'documents#get_documents'
     end
   end
 
