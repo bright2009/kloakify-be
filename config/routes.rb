@@ -16,9 +16,7 @@ Rails.application.routes.draw do
       namespace :users do
         get '/user_details' => 'current_user#index'
       end
-      resources :organization do
-
-      end
+      resources :documents, only: [:create]
     end
   end
 
