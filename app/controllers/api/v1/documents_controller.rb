@@ -22,7 +22,8 @@ class Api::V1::DocumentsController < ApplicationController
 
 
    def get_documents
-      @document = Document.last
+      @document = Document.all
+      # render json: @documents
       render json: {
         status: { code: 200, message: "Document." },
         data: DocumentSerializers.new(@document).serializable_hash,
