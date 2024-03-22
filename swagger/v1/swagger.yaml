@@ -1,10 +1,10 @@
 openapi: 3.0.3
 info:
-  title: "Kloaify API"
-  description: "Kloaify API"
-  version: 1.0.0
+ title: "Kloaify API"
+ description: "Kloaify API"
+ version: 1.0.0
 paths:
-  /api/v1/users/sign_up:
+ /api/v1/users/sign_up:
     post:
       summary: Sign up a new user
       requestBody:
@@ -20,8 +20,39 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UserSignupResponse'
+ /api/v1/users/sign_in:
+    post:
+      summary: Sign in an existing user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserSigninRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserSigninResponse'
+          headers:
+            Authorization:
+              schema:
+                type: string
+              description: Bearer token
+ /api/v1/users/sign_out:
+    delete:
+      summary: Sign out the current user
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserSignoutResponse'
 components:
-  schemas:
+ schemas:
     UserSignupRequest:
       type: object
       properties:
@@ -33,7 +64,7 @@ components:
               format: email
             password:
               type: string
-              minLength: 8  # Example minimum length, adjust as needed
+              minLength: 8 # Example minimum length, adjust as needed
     UserSignupResponse:
       type: object
       properties:
@@ -59,4 +90,49 @@ components:
             created_at:
               type: string
               format: date-time
-
+    UserSigninRequest:
+      type: object
+      properties:
+        user:
+          type: object
+          properties:
+            email:
+              type: string
+              format: email
+            password:
+              type: string
+              minLength: 8 # Example minimum length, adjust as needed
+    UserSigninResponse:
+      type: object
+      properties:
+        status:
+          type: object
+          properties:
+            code:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: "Logged in successfully."
+        data:
+          type: object
+          properties:
+            id:
+              type: integer
+            jti:
+              type: string
+            email:
+              type: string
+              format: email
+            created_at:
+              type: string
+              format: date-time
+    UserSignoutResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 200
+        message:
+          type: string
+          example: "Logged out successfully."
