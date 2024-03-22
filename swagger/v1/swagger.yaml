@@ -51,6 +51,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UserSignoutResponse'
+ /api/v1/users/details:
+    get:
+      summary: Retrieve user details
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDetailsResponse'
 components:
  schemas:
     UserSignupRequest:
@@ -136,3 +148,33 @@ components:
         message:
           type: string
           example: "Logged out successfully."
+    UserDetailsResponse:
+      type: object
+      properties:
+        status:
+          type: object
+          properties:
+            code:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: "User profile."
+        data:
+          type: object
+          properties:
+            id:
+              type: integer
+            jti:
+              type: string
+            email:
+              type: string
+              format: email
+            created_at:
+              type: string
+              format: date-time
+securitySchemes:
+ BearerAuth:
+    type: http
+    scheme: bearer
+    bearerFormat: JWT
