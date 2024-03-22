@@ -36,6 +36,7 @@ gem "bootsnap", require: false
 gem "rack-cors"
 gem 'devise'
 gem 'devise-jwt'
+gem 'devise_invitable', '~> 2.0.0'
 gem 'fast_jsonapi'
 gem "active_model_serializers"
 gem 'rswag-api'
